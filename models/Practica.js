@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
+    "FILENAME": String,
     "LABORATORIO": Number,
     "PROTOCOLO": Number,
     "DNI": Number,

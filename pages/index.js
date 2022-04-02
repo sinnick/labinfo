@@ -1,16 +1,17 @@
 import DarkmodeToggle from "./components/DarkmodeToggle";
 import { useTheme } from "next-themes";
-import Buscar from "./components/Buscar";
 import Titulo from "./components/Titulo";
 import ComponenteLaboratorios from "./components/ComponenteLaboratorios";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 //!remover
-export async function  getServerSideProps () {
-  const laboratorios = await fetch ('http://localhost:3000/api/laboratorios')
+export async function getServerSideProps() {
+  const laboratorios = await fetch('http://localhost:3000/api/laboratorios')
   const laboratoriosJson = await laboratorios.json()
-  console.log({laboratoriosJson})
+  console.log({ laboratoriosJson })
   return {
-      props: {}
+    props: {}
   }
 
 }
@@ -18,9 +19,27 @@ export async function  getServerSideProps () {
 
 
 const index = () => {
- 
+
+  const router = useRouter();
+
 
   const { theme, setTheme } = useTheme();
+  const [dni, setDni] = useState("");
+  const [protocolo, setProtocolo] = useState("");
+
+
+  const handleBuscar = () => {
+    console.log(dni)
+    console.log(protocolo)
+    router.push({
+      pathname: "/resultado",
+      query: {
+        dni: dni,
+        protocolo: protocolo
+      }
+    })
+
+  }
 
   return (
 
@@ -49,9 +68,10 @@ const index = () => {
         <div className="mt-10 w-4/5">
           <div className=" flex items-center justify-between  rounded-xl border-red-500 border-2">
             <input
-            type="number"
+              type="number"
               className="rounded-l-lg py-2 w-3/5 font-bold  bg-transparent focus:outline-none text-center uppercase text-md"
               placeholder="..."
+              onChange={(e) => setDni(e.target.value)}
             />
             <Titulo label={'Numero de DNI'} />
           </div>
@@ -60,9 +80,10 @@ const index = () => {
         <div className="mt-10 w-4/5">
           <div className=" flex items-center justify-between  rounded-xl border-red-500 border-2">
             <input
-            type="number"
+              type="number"
               className="rounded-l-lg py-2 w-3/5 font-bold  bg-transparent  focus:outline-none text-center uppercase text-md"
               placeholder="..."
+              onChange={(e) => setProtocolo(e.target.value)}
             />
             <Titulo label={'Numero de practica'} />
           </div>
@@ -71,8 +92,10 @@ const index = () => {
 
         <div className="mt-10 w-4/5">
           <div className=" flex items-center justify-between  rounded-xl border-red-500 border-2">
-            
-            <Buscar/>
+
+            <button className="rounded-r-lg bg-red-500  font-bold py-2 w-full uppercase border-red-500 border-2 text-md" onClick={handleBuscar}>
+              Buscar
+            </button>
           </div>
         </div>
 

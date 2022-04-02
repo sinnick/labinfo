@@ -21,6 +21,7 @@ export default function sincronizar(req, res) {
         let fecha_eliminacion = await getFechaEliminacion(fecha_creacion);
         // console.log({fecha_eliminacion})
         let practica = new Practica({
+            "FILENAME": file,
             "LABORATORIO": laboratorio,
             "PROTOCOLO": protocolo,
             "DNI": dni,
@@ -29,15 +30,18 @@ export default function sincronizar(req, res) {
             "FECHA_CREACION": fecha_creacion,
             "FECHA_ELIMINACION": fecha_eliminacion
         });
-        practica.save();
-        console.log(practica)
-
+        Practica.findOne({ "PROTOCOLO": protocolo, "DNI": dni, "LABORATORIO": laboratorio }, async (err, prac) => {
+            if (!prac) {
+                practica.save();
+                // console.log(practica)
+            }
+        })
     })
     res.status(200).json({ "status": "ok", "data": files })
 }
 
 
-async function getFechaInforme (fechaInforme)  {
+async function getFechaInforme(fechaInforme) {
     let fechaInformeArray = fechaInforme.replace('.pdf', '').split('');
     let day = fechaInformeArray[0] + fechaInformeArray[1];
     let preMonth = fechaInformeArray[2] + fechaInformeArray[3];
@@ -45,16 +49,16 @@ async function getFechaInforme (fechaInforme)  {
     let month = parseInt(preMonth) - 1;
 
     // let fechaInformeConGuiones = fechaInformeArray.slice(0, 2).join('') + '-' + fechaInformeArray.slice(2, 4).join('') + '-' + fechaInformeArray.slice(4, 8).join('');
-    
+
     let DateFechaInforme = new Date(year, month, day);
     return DateFechaInforme;
 }
 
-async function getFechaEliminacion (fecha_creacion) {
+async function getFechaEliminacion(fecha_creacion) {
     let month = fecha_creacion.getMonth();
     let year = fecha_creacion.getFullYear();
-    let day = fecha_creacion.getDate() +1;
-    month == 11 ? month = 0 : month = month+1;
+    let day = fecha_creacion.getDate() + 1;
+    month == 11 ? month = 0 : month = month + 1;
     let DateFechaEliminacion = new Date(year, month, day);
     console.log(fecha_creacion)
     console.log(DateFechaEliminacion)

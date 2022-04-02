@@ -6,12 +6,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^2.1.1",
     "moment": "^2.29.1",
     "mongoose": "^6.2.2",
     "next": "latest",
     "next-themes": "^0.1.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-pdf": "^5.7.2"
   },
   "devDependencies": {
     "@types/node": "17.0.4",

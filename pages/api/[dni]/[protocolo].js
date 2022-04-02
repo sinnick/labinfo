@@ -14,7 +14,6 @@ export default async function practica(req, res) {
                 let pdf = fs.readFileSync('pdf/' + file.name)
                 res.setHeader('Content-Type', 'application/pdf');
                 res.send(pdf);
-
             }
         })
     } else {
