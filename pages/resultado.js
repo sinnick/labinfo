@@ -1,54 +1,56 @@
-import { pdfjs } from 'react-pdf';
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
-import { File, Document } from 'react-pdf';
-import {useState} from 'react';
+import { useState } from "react";
+// import default react-pdf entry
+import { Document, Page, pdfjs } from "react-pdf";
+// import pdf worker as a url, see `next.config.js` and `pdf-worker.js`
+import workerSrc from "pdf-worker.js";	
+
+pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
 export async function getServerSideProps(context) {
     const query = context.query
-
-    // const pdf = await fetch(`http://localhost:3000/api/${query.dni}/${query.practica}`)
-    // console.log(` fetching http://localhost:3000/api/${query.dni}/${query.practica}`)
-    // console.log(pdf)
-
+    console.log(query)
+    let data  = await fetch(`http://localhost:3000/api/file/${query.dni}/${query.protocolo}`)
+    let respuesta = await data.json();
+    // console.log({respuesta})
     
-    // console.log(context.query)
     return {
         props: {
-            query
+            respuesta
         }
     }
 }
 
 
 
-const resultado = ({ query }) => {
+const resultado = ({ respuesta }) => {
+    console.log(respuesta)
+    const [file, setFile] = useState(`http://sinnick.duckdns.org:3000/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`);
+    const [numPages, setNumPages] = useState(null);
 
-    const [file, setFile] = useState("0100_00000123_17520520_ARENAS  MONICA_14052021.pdf")
-
-    const errr = () => {
-        console.log("error")	
-    }
-    const succc = () => {
-        console.log("succcess")	
-        console.log(source)	
-    }
-
-
-
-    let source = `http://localhost:3000/api/${query.dni}/${query.practica}`	
-
-
+    function onDocumentLoadSuccess({ numPages: nextNumPages }) {
+        setNumPages(nextNumPages);
+      }
+  
 
     return (
-        <div className="h-screen">
+        <div className="h-screen m-14">
         <div>resultado de: </div>
-        <div>DNI:</div>
-        <div>{query.dni}</div>
-        <div>protocolo:</div>
-        <div>{query.practica}</div>
-        <div className='bg-red-500 h-100'>
-        <Document file={source} onLoadError={errr} onLoadSuccess={succc}/>
-        </div>
+        <div>DNI: {respuesta.DNI}</div>
+        <div>NOMBRE: {respuesta.NOMBRE}</div>
+        <div>protocolo: {respuesta.PROTOCOLO}</div>
+        <div>
+        <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
+          {Array.from({ length: numPages }, (_, index) => (
+            <Page
+              key={`page_${index + 1}`}
+              pageNumber={index + 1}
+              renderAnnotationLayer={false}
+              renderTextLayer={false}
+            />
+          ))}
+        </Document>
+      </div>
+        
         </div>
         
     )
