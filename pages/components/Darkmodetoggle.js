@@ -12,7 +12,7 @@ const DarkmodeToggle = () => {
   const icono = theme === "light" ? "🌙" : "☀️";
   
   return (
-    <div>
+    <div className="m-4">
       <button className="border-gray-800 border-2 p-2 rounded-full text-xl  top-1 absolute" onClick={toggleTheme}>
         {icono}
       </button>

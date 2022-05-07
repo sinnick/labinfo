@@ -23,8 +23,9 @@ export async function getServerSideProps(context) {
 
 
 const resultado = ({ respuesta }) => {
-    console.log(respuesta)
-    const [file, setFile] = useState(`http://sinnick.duckdns.org:3000/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`);
+    console.log({respuesta})
+    // const [file, setFile] = useState(`http://sinnick.duckdns.org:3000/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`);
+    const [file, setFile] = useState(`http://localhost:3000/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`);
     const [numPages, setNumPages] = useState(null);
 
     function onDocumentLoadSuccess({ numPages: nextNumPages }) {

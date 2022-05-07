@@ -9,6 +9,8 @@ const schema = mongoose.Schema({
     "FECHA_INFORME": Date,
     "FECHA_CREACION": Date,
     "FECHA_ELIMINACION": Date,
+    "VISTO": Boolean,
+    "DESCARGADO": Boolean,
 });
     
 

@@ -4,21 +4,24 @@ import Titulo from "./components/Titulo";
 import ComponenteLaboratorios from "./components/ComponenteLaboratorios";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-//!remover
+
 export async function getServerSideProps() {
   const laboratorios = await fetch('http://localhost:3000/api/laboratorios')
   const laboratoriosJson = await laboratorios.json()
-  console.log({ laboratoriosJson })
+  console.log('index.js laboratoriosJson: ',  laboratoriosJson)
+
   return {
-    props: {}
+    props: {laboratoriosJson}
   }
 
 }
-//! remover
 
 
-const index = () => {
+
+const index = ({laboratoriosJson}) => {
+  // console.log('DENTRO DE index.js laboratoriosJson: ',  laboratoriosJson)
 
   const router = useRouter();
 
@@ -61,7 +64,7 @@ const index = () => {
             <h4 className="w-3/5 rounded-l-lg bg-red-500   font-bold uppercase text-md py-2 text-center border-2 border-red-500 ">
               Seleccione el Laboratorio
             </h4>
-            <ComponenteLaboratorios />
+            <ComponenteLaboratorios laboratoriosJson={laboratoriosJson} />
           </div>
         </div>
 
@@ -101,18 +104,19 @@ const index = () => {
 
         {/* <div className="bg-green-400 py-14 px-64 mb-6 mt-32 ">publicidad</div> */}
         <div className="flex">
-          <button className="w-1/3 rounded-lg mx-6 mt-20 bg-red-500   font-bold p-2 uppercase">
+        <Link href="/administracion">
+          <button className="w-1/3 rounded-lg m-20 bg-red-500 font-bold py-2 px-6 uppercase">
             Administracion
           </button>
-          <button className="w-1/3 rounded-lg mx-6 mt-20 bg-red-500   font-bold p-2 uppercase">
+        </Link>
+          <button className="w-1/3 rounded-lg m-20 bg-red-500 font-bold py-2 px-6 uppercase">
             Cargar Protocolo
           </button>
-          <button className="w-1/3 rounded-lg mx-6 mt-20 bg-red-500   font-bold p-2 uppercase">
-            Asociarse a InfoLab
-          </button>
-          <button className="w-1/3 rounded-lg mx-6 mt-20 bg-red-500   font-bold p-2 uppercase">
+          <Link href="/contacto">
+          <button className="w-1/3 rounded-lg m-20 bg-red-500 font-bold py-2 px-6 uppercase">
             Contacto
           </button>
+        </Link>
         </div>
       </main>
 
