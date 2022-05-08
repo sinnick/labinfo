@@ -12,7 +12,7 @@ export default async (req, res) => {
             try {
                 await dbConnect();
                 const laboratorio = await Laboratorio.findById(id);
-                console.log(laboratorio);
+                console.log('GET 1 LAB: ', laboratorio);
                 return res.status(200).json(laboratorio);
             } catch (error) {
                 console.log(error);

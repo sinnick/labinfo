@@ -26,13 +26,13 @@ const administracion = () => {
   
 
   return (
-    <section className=" body-font">
-      <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
+    <section className=" body-font bg-gray-900 h-screen">
+      <div className="container px-5 py-2 md:py-24 mx-auto flex flex-wrap items-center">
         <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
           <h1 className="title-font font-medium text-3xl">Bienvenido a la pagina de administracion de PSLab web</h1>
           <p className="leading-relaxed mt-4">Aca va texto mucho muy importante</p>
         </div>
-        <div className="lg:w-2/6 md:w-1/2 bg-gray-500 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 shadow-gray-900 shadow-lg">
+        <div className="lg:w-2/6 md:w-1/2 bg-gray-800 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 shadow-gray-900 shadow-lg">
           <h2 className="text-xl font-medium title-font mb-5">Iniciar sesion</h2>
 
           <div className="relative mb-4">
@@ -55,9 +55,9 @@ const administracion = () => {
             className="w-full bg-gray-500 rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 text-base outline-none  py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" 
             onChange={(e) => setPassword(e.target.value)}/>
           </div>
-          <button className="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg mb-4" onClick={handleLogin}>Entrar</button>
+          <button className="text-white font-bold bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg mb-4" onClick={handleLogin}>Entrar</button>
           <Link href="/registrar">
-          <button className="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">Registrarme</button>
+          <button className="text-white font-bold bg-blue-600 border-0 py-2 px-8 focus:outline-none hover:bg-blue-700 rounded text-lg">Registrarme</button>
           </Link>
           
         </div>

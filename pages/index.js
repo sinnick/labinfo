@@ -10,23 +10,19 @@ import Link from "next/link";
 export async function getServerSideProps() {
   const laboratorios = await fetch('http://localhost:3000/api/laboratorios')
   const laboratoriosJson = await laboratorios.json()
-  console.log('index.js laboratoriosJson: ',  laboratoriosJson)
+  console.log('index.js laboratoriosJson: ', laboratoriosJson)
 
   return {
-    props: {laboratoriosJson}
+    props: { laboratoriosJson }
   }
 
 }
-
-
-
-const index = ({laboratoriosJson}) => {
-  // console.log('DENTRO DE index.js laboratoriosJson: ',  laboratoriosJson)
+const index = ({ laboratoriosJson }) => {
 
   const router = useRouter();
 
 
-  const { theme, setTheme } = useTheme();
+  // const { theme, setTheme } = useTheme();
   const [dni, setDni] = useState("");
   const [protocolo, setProtocolo] = useState("");
 
@@ -45,87 +41,74 @@ const index = ({laboratoriosJson}) => {
   }
 
   return (
+    <section class="text-gray-400 bg-gray-900 body-font h-screen">
+      <div class="container mx-auto flex flex-col px-5 py-12 justify-center items-center lg:py-24">
 
-    <div className="flex flex-col items-center justify-center min-w-min min-h-screen">
-      <DarkmodeToggle theme={theme} />
-      {/* <Head>
-        <title>InfoLab</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head> */}
-      <main className="flex flex-col items-center justify-center mt-8 content-around">
-        <h1 className="text-6xl font-bold">
-          Bienvenido a <b className="text-red-600">InfoLab</b>
-        </h1>
+        <div class="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
+          <h1 class="title-font sm:text-4xl text-3xl mb-2 font-medium text-white">Bienvenido a <b className="text-red-500"> INFOLAB </b></h1>
+          <p class="mb-8 leading-relaxed">Informes de Laboratorio Online de PSLab</p>
+          <div class="flex w-full justify-center items-center">
+            <div class="relative mr-4 lg:w-full xl:w-1/2 w-4/5 md:w-full text-center">
+              <p class="text-sm mt-12 text-gray-500 mb-6 w-full">Por favor, ingrese sus datos</p>
 
-        <p className="mt-3 text-2xl">Informes de Laboratorio Online de PSLab</p>
 
-        <div className="mt-24 w-4/5">
-          <div className=" flex items-center border-2  border-red-500 rounded-xl justify-between">
-            <h4 className="w-3/5 rounded-l-lg bg-red-500   font-bold uppercase text-md py-2 text-center border-2 border-red-500 ">
-              Seleccione el Laboratorio
-            </h4>
-            <ComponenteLaboratorios laboratoriosJson={laboratoriosJson} />
+
+              <form>
+                <div className="grid gap-6 mb-6">
+                  <div>
+                    <ComponenteLaboratorios laboratoriosJson={laboratoriosJson} />
+                  </div>
+
+                  <div>
+                    <input
+                      type="number"
+                      className="w-full bg-gray-800 rounded border bg-opacity-40 border-gray-700 focus:ring-2 focus:ring-red-900 focus:bg-transparent focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      placeholder="DNI"
+                      onChange={(e) => setDni(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <input
+                      type="number"
+                      className="w-full bg-gray-800 rounded border bg-opacity-40 border-gray-700 focus:ring-2 focus:ring-red-900 focus:bg-transparent focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      placeholder="PROTOCOLO"
+                      onChange={(e) => setProtocolo(e.target.value)}
+                      required
+                    />
+
+                  </div>
+                </div>
+
+              </form>
+
+              <button className="rounded-md text-white bg-red-500  font-bold py-2 w-full uppercase text-md" onClick={handleBuscar}>
+                Buscar
+              </button>
+
+              <div className="flex flex-wrap mt-24 justify-center">
+
+                <Link href="/administracion">
+                  <button className="rounded-md text-white bg-red-500  font-bold py-2 w-1/3 uppercase border-red-500 text-sm mx-auto">
+                    Admin
+                  </button>
+                </Link>
+                <Link href="/contacto">
+                  <button className="rounded-md text-white bg-red-500  font-bold py-2 w-1/3 uppercase border-red-500 text-sm mx-auto">
+                    Contacto
+                  </button>
+                </Link>
+              </div>
+
+
+
+            </div>
           </div>
+
         </div>
-
-        <div className="mt-10 w-4/5">
-          <div className=" flex items-center justify-between  rounded-xl border-red-500 border-2">
-            <input
-              type="number"
-              className="rounded-l-lg py-2 w-3/5 font-bold  bg-transparent focus:outline-none text-center uppercase text-md"
-              placeholder="..."
-              onChange={(e) => setDni(e.target.value)}
-            />
-            <Titulo label={'Numero de DNI'} />
-          </div>
-        </div>
-
-        <div className="mt-10 w-4/5">
-          <div className=" flex items-center justify-between  rounded-xl border-red-500 border-2">
-            <input
-              type="number"
-              className="rounded-l-lg py-2 w-3/5 font-bold  bg-transparent  focus:outline-none text-center uppercase text-md"
-              placeholder="..."
-              onChange={(e) => setProtocolo(e.target.value)}
-            />
-            <Titulo label={'Numero de practica'} />
-          </div>
-        </div>
-
-
-        <div className="mt-10 w-4/5">
-          <div className=" flex items-center justify-between  rounded-xl border-red-500 border-2">
-
-            <button className="rounded-r-lg bg-red-500  font-bold py-2 w-full uppercase border-red-500 border-2 text-md" onClick={handleBuscar}>
-              Buscar
-            </button>
-          </div>
-        </div>
-
-        {/* <div className="bg-green-400 py-14 px-64 mb-6 mt-32 ">publicidad</div> */}
-        <div className="flex">
-        <Link href="/administracion">
-          <button className="w-1/3 rounded-lg m-20 bg-red-500 font-bold py-2 px-6 uppercase">
-            Administracion
-          </button>
-        </Link>
-          <button className="w-1/3 rounded-lg m-20 bg-red-500 font-bold py-2 px-6 uppercase">
-            Cargar Protocolo
-          </button>
-          <Link href="/contacto">
-          <button className="w-1/3 rounded-lg m-20 bg-red-500 font-bold py-2 px-6 uppercase">
-            Contacto
-          </button>
-        </Link>
-        </div>
-      </main>
-
-      {/* <footer className="flex flex-wrap flex-col bg-red-500 p-3 flex-shrink-0 w-full text-center bottom-0 relative mt-auto">
-        <p>© InfoLab 2021</p>
-      </footer> */}
-    </div>
-
-  );
+      </div>
+    </section>)
 }
 
 export default index;

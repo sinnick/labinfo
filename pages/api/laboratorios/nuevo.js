@@ -8,6 +8,7 @@ export default async function (req, res) {
     switch (req.method) {
         case "POST":
             console.log("POST nuevo laboratorio");
+            console.log(req.body);
             try {
                 const lab = await Laboratorio.create(req.body);
                 res.status(201).json({status: "ok", mensaje: `se creo el laboratorio ${lab.NOMBRE} con ID ${lab._id}`});

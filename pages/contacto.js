@@ -3,7 +3,7 @@ const contacto = () => {
   return (
     <div>
 
-      <section className="text-gray-400 bg-gray-900 body-font relative h-full">
+      <section className="text-gray-400 bg-gray-900 body-font relative h-screen">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Contactanos</h1>
@@ -33,7 +33,7 @@ const contacto = () => {
                 <button className="flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Enviar</button>
               </div>
               <div className="p-2 w-full pt-8 mt-8 border-t border-gray-800 text-center">
-                <a className="text-red-400">example@email.com</a>
+                <a className="text-red-400">todavianofunciona@email.com</a>
                 <br></br>
                 <br></br>
                 <br></br>
