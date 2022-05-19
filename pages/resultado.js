@@ -39,7 +39,6 @@ export async function getServerSideProps(context) {
 
 const resultado = ({ respuesta }) => {
   console.log({ respuesta })
-  // const [file, setFile] = useState(`http://sinnick.duckdns.org:3000/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`);
   const [file, setFile] = useState(`/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`);
   const [numPages, setNumPages] = useState(null);
 
@@ -47,17 +46,23 @@ const resultado = ({ respuesta }) => {
     setNumPages(nextNumPages);
   }
 
+  async function handleDownload () {
+    let resp = await fetch(`/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`)
+    let data = await resp.blob()
+    console.log({data})
+    const file = new Blob([data], { type: 'application/pdf' });
+    const fileURL = URL.createObjectURL(file);
+    window.open(fileURL);
+  }
+  
 
   return (
-
     <div className="text-gray-400 bg-gray-900 p-64 -m-64 lg:p-0 lg:m-0">
-
-
       <section className="text-gray-400 bg-gray-900 body-font">
         <div className="container px-5 py-12 mx-auto">
           <div className="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
             <h1 className="flex-grow sm:pr-16 text-xl font-medium title-font text-white">{respuesta.NOMBRE} - {respuesta.DNI}</h1>
-            <button className="flex-shrink-0 text-gray-900 font-bold bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg mt-10 sm:mt-0">Descargar</button>
+            <button className=" mx-2 flex-shrink-0 text-gray-900 font-bold bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg mt-10 sm:mt-0" onClick={handleDownload}>Descargar</button>
           </div>
           <div className="lg:flex lg:justify-center mt-12 mx-auto">
             <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
@@ -73,39 +78,7 @@ const resultado = ({ respuesta }) => {
           </div>
         </div>
       </section>
-
-
     </div>
-
-
-
-
-
-
-
-
-
-
-    /* <div className="h-screen m-14">
-    <div>resultado de: </div>
-    <div>DNI: {respuesta.DNI}</div>
-    <div>NOMBRE: {respuesta.NOMBRE}</div>
-    <div>protocolo: {respuesta.PROTOCOLO}</div>
-    <div>
-    <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
-      {Array.from({ length: numPages }, (_, index) => (
-        <Page
-          key={`page_${index + 1}`}
-          pageNumber={index + 1}
-          renderAnnotationLayer={false}
-          renderTextLayer={false}
-        />
-      ))}
-    </Document>
-  </div>
-    
-    </div> */
-
   )
 }
 

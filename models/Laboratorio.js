@@ -4,7 +4,7 @@ const schema = mongoose.Schema({
     "ID": Number,
     "NOMBRE": String,
     "DESCRIPCION": String,
-    "ESTADO": String,
+    "ACTIVO": Boolean,
     "FECHA_DE_PAGO": String,
     "FECHA_DE_EXPIRACION": String,
     "LIMITE_DE_PDF": Number,

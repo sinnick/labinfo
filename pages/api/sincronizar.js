@@ -9,7 +9,10 @@ import Practica from 'models/Practica';
 export default function sincronizar(req, res) {
     dbConnect();
     const files = fs.readdirSync('pdf', { withFileTypes: false });
+    let updates = [];
+    let failedUpdates = [];
     files.forEach(async (file) => {
+        console.log('working with file', file )
         let laboratorio = file.split('_')[0];
         let protocolo = file.split('_')[1];
         let dni = file.split('_')[2];
@@ -20,7 +23,7 @@ export default function sincronizar(req, res) {
         // console.log({fecha_creacion})
         let fecha_eliminacion = await getFechaEliminacion(fecha_creacion);
         // console.log({fecha_eliminacion})
-        let practica = new Practica({
+        let practica = ({
             "FILENAME": file,
             "LABORATORIO": laboratorio,
             "PROTOCOLO": protocolo,
@@ -28,16 +31,23 @@ export default function sincronizar(req, res) {
             "NOMBRE": nombre,
             "FECHA_INFORME": fecha_informe,
             "FECHA_CREACION": fecha_creacion,
-            "FECHA_ELIMINACION": fecha_eliminacion
+            "FECHA_ELIMINACION": fecha_eliminacion,
+            "VISTO": false,
+            "DESCARGADO": false,
         });
-        Practica.findOne({ "PROTOCOLO": protocolo, "DNI": dni, "LABORATORIO": laboratorio }, async (err, prac) => {
-            if (!prac) {
-                practica.save();
-                // console.log(practica)
+        const query = { "PROTOCOLO": protocolo, "DNI": dni, "LABORATORIO": laboratorio };
+        const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+        Practica.findOneAndUpdate(query, practica, options, (err, result) => {
+            if (err) {
+                console.log(err);
+                failedUpdates.push(file);
+            } else {
+                console.log(result);
+                updates.push(file);
             }
-        })
+        });
     })
-    res.status(200).json({ "status": "ok", "data": files })
+    res.status(200).json({ "status": "ok", "updated": updates, "failed": failedUpdates });
 }
 
 

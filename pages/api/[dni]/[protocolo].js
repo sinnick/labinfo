@@ -13,7 +13,7 @@ export default async function practica(req, res) {
             if (file.name.includes(req.query.protocolo) && file.name.includes(req.query.dni)) {
                 let pdf = fs.readFileSync('pdf/' + file.name)
                 res.setHeader('Content-Type', 'application/pdf');
-                res.send(pdf);
+                res.status(200).send(pdf);
             }
         })
     } else {

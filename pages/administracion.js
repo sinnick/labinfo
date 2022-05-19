@@ -13,7 +13,7 @@ const administracion = () => {
   const handleLogin = () => {
     console.log(user)
     console.log(password)
-    user === "admin" && password === "admin" ? router.push("/administrarlabs") : router.push("/")
+    user.trim().toLowerCase() === "admin" && password.trim().toLowerCase() === "admin" ? router.push("/administrarlabs") : router.push("/")
     // router.push({
     //   pathname: "/login",
     //   query: {
@@ -56,10 +56,6 @@ const administracion = () => {
             onChange={(e) => setPassword(e.target.value)}/>
           </div>
           <button className="text-white font-bold bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg mb-4" onClick={handleLogin}>Entrar</button>
-          <Link href="/registrar">
-          <button className="text-white font-bold bg-blue-600 border-0 py-2 px-8 focus:outline-none hover:bg-blue-700 rounded text-lg">Registrarme</button>
-          </Link>
-          
         </div>
       </div>
     </section>

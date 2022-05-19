@@ -5,6 +5,8 @@ import ComponenteLaboratorios from "./components/ComponenteLaboratorios";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export async function getServerSideProps() {
@@ -23,33 +25,57 @@ const index = ({ laboratoriosJson }) => {
 
 
   // const { theme, setTheme } = useTheme();
-  const [dni, setDni] = useState("");
-  const [protocolo, setProtocolo] = useState("");
+  const [dni, setDni] = useState(0);
+  const [protocolo, setProtocolo] = useState(0);
 
 
   const handleBuscar = () => {
-    console.log(dni)
-    console.log(protocolo)
-    router.push({
-      pathname: "/resultado",
-      query: {
-        dni: dni,
-        protocolo: protocolo
-      }
+    // console.log(dni)
+    // console.log(protocolo)
+    console.log(`fetching http://sinnick.duckdns.org:3000/api/${dni || 0}/${protocolo || 0}`)
+    fetch(`/api/${dni || 0}/${protocolo || 0}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
     })
+      .then(res => {
+        if (res.status === 200) {
+          console.log('archivo encontrado, ', res)
+          toast.success("Protocolo encontrado", res.NOMBRE)
+          setTimeout(() => {
+            router.push({
+              pathname: "/resultado",
+              query: {
+                dni: dni,
+                protocolo: protocolo
+              }
+            })
+          }, 3000);
+        } else {
+          toast.error("No se encontro el protocolo")
+        }
+      })
+      .catch(err => {
+        toast.error("No se encontro el protocolo")
+        console.log(err)
+      })
+    
 
   }
 
   return (
-    <section class="text-gray-400 bg-gray-900 body-font h-screen">
-      <div class="container mx-auto flex flex-col px-5 py-12 justify-center items-center lg:py-24">
+    <section className="text-gray-400 bg-gray-900 body-font h-screen">
+      <div className="container mx-auto flex flex-col px-5 py-12 justify-center items-center lg:py-24">
 
-        <div class="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
-          <h1 class="title-font sm:text-4xl text-3xl mb-2 font-medium text-white">Bienvenido a <b className="text-red-500"> INFOLAB </b></h1>
-          <p class="mb-8 leading-relaxed">Informes de Laboratorio Online de PSLab</p>
-          <div class="flex w-full justify-center items-center">
-            <div class="relative mr-4 lg:w-full xl:w-1/2 w-4/5 md:w-full text-center">
-              <p class="text-sm mt-12 text-gray-500 mb-6 w-full">Por favor, ingrese sus datos</p>
+        <div className="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
+          <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-white">Bienvenido a <b className="text-red-500"> INFOLAB </b></h1>
+          <p className="mb-8 leading-relaxed">Informes de Laboratorio Online de PSLab</p>
+          <div className="flex w-full justify-center items-center">
+            <div className="relative mr-4 lg:w-full xl:w-1/2 w-4/5 md:w-full text-center">
+              <p className="text-sm mt-12 text-gray-500 mb-6 w-full">Por favor, ingrese sus datos</p>
 
 
 
@@ -84,16 +110,29 @@ const index = ({ laboratoriosJson }) => {
               </form>
 
               <button className="rounded-md text-white bg-red-500  font-bold py-2 w-full uppercase text-md" onClick={handleBuscar}>
-                Buscar
+                Buscar &#128270;
               </button>
 
               <div className="flex flex-wrap mt-24 justify-center">
 
                 <Link href="/administracion">
                   <button className="rounded-md text-white bg-red-500  font-bold py-2 w-1/3 uppercase border-red-500 text-sm mx-auto">
-                    Admin
+
+                    &#128274; Admin
                   </button>
                 </Link>
+                <ToastContainer
+                  theme="dark"
+                  position="bottom-center"
+                  autoClose={3000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={true}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
                 <Link href="/contacto">
                   <button className="rounded-md text-white bg-red-500  font-bold py-2 w-1/3 uppercase border-red-500 text-sm mx-auto">
                     Contacto

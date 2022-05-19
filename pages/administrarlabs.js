@@ -9,17 +9,17 @@ export async function getServerSideProps() {
     const laboratorios = await Laboratorio.find();
     const laboratoriosJson = JSON.parse(JSON.stringify(laboratorios));
     console.log('index.js laboratoriosJson: ', laboratoriosJson)
-    
+
     return {
         props: { laboratoriosJson }
     }
-    
+
 }
 
 const administrarlabs = ({ laboratoriosJson }) => {
     console.log('DENTRO DE adminstrar LABS : ', laboratoriosJson)
 
-  
+
 
 
 
@@ -30,13 +30,11 @@ const administrarlabs = ({ laboratoriosJson }) => {
                     <h1 className="sm:text-3xl text-2xl font-medium title-font text-white">Administracion de laboratorios</h1>
                 </div>
                 <div className="flex flex-wrap m-4 justify-evenly lg:justify-start">
-                <Link href={`/nuevolab`}>
-                <button className="text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded text-lg mt-6 ml-4 mb-4">Nuevo</button>
-                </Link>
+                    <Link href={`/nuevolab`}>
+                        <button className="text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded text-lg mt-6 ml-4 mb-4">Nuevo</button>
+                    </Link>
                     {laboratoriosJson.map(laboratorio => {
                         return (
-
-
                             <div className="p-4 md:max-w-1/3 min-w-full">
                                 <div className="flex rounded-lg h-full bg-gray-800 bg-opacity-60 p-8 flex-col ">
                                     <div className="flex items-center mb-3">
@@ -61,7 +59,7 @@ const administrarlabs = ({ laboratoriosJson }) => {
                                         <h4 className="text-left text-md">DIAS_PDF: <span className="text-red-500 text-sm">{laboratorio.DIAS_PDF}</span></h4>
                                     </div>
                                     <Link href={`/editarlab/${laboratorio._id}`}>
-                                    <button className="text-white bg-red-500 border-0 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-lg -mb-1 mt-6">Editar</button>
+                                        <button className="text-white bg-red-500 border-0 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-lg -mb-1 mt-6">Editar</button>
                                     </Link>
                                 </div>
                             </div>
