@@ -67,8 +67,8 @@ const index = ({ laboratoriosJson }) => {
   }
 
   return (
-    <section className="text-gray-400 bg-gray-900 body-font h-screen">
-      <div className="container mx-auto flex flex-col px-5 py-12 justify-center items-center lg:py-24">
+    <section className="text-gray-400 bg-gray-900 body-font h-screen pb-24">
+      <div className="container mx-auto flex flex-col px-5 py-12 justify-center items-center">
 
         <div className="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
           <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-white">Bienvenido a <b className="text-red-500"> INFOLAB </b></h1>

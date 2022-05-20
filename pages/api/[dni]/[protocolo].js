@@ -8,7 +8,10 @@ export default async function practica(req, res) {
 
     const practica = await Practica.findOne({ "PROTOCOLO": req.query.protocolo, "DNI": req.query.dni });
     if (practica) {
-        // console.log('archivo encontrado, ', practica)
+        let update = { "VISTO": true };
+        let filter = { "PROTOCOLO": req.query.protocolo, "DNI": req.query.dni };
+        console.log("practica encontrada", practica)
+        await Practica.findOneAndUpdate(filter, update)
         fs.readdirSync('pdf', { withFileTypes: true }).forEach(async (file) => {
             if (file.name.includes(req.query.protocolo) && file.name.includes(req.query.dni)) {
                 let pdf = fs.readFileSync('pdf/' + file.name)

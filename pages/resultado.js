@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import default react-pdf entry
 import { Document, Page, pdfjs } from "react-pdf";
 // import pdf worker as a url, see `next.config.js` and `pdf-worker.js`
@@ -27,9 +27,6 @@ export async function getServerSideProps(context) {
       respuesta
     }
   }
-  // let resp = await Practica.findOne({ "PROTOCOLO": query.protocolo, "DNI": query.dni });
-  // console.log('resppppppppppppp', resp)
-  // let respuesta = await resp.json();
 
 
 
@@ -38,6 +35,13 @@ export async function getServerSideProps(context) {
 
 
 const resultado = ({ respuesta }) => {
+
+  useEffect(()=> {
+    window.history.pushState({}, null, '/resultado')
+}, [])
+
+
+
   console.log({ respuesta })
   const [file, setFile] = useState(`/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`);
   const [numPages, setNumPages] = useState(null);
@@ -47,7 +51,9 @@ const resultado = ({ respuesta }) => {
   }
 
   async function handleDownload () {
+    fetch(`/api/update/${respuesta.DNI}/${respuesta.PROTOCOLO}`)
     let resp = await fetch(`/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`)
+    console.log({resp})
     let data = await resp.blob()
     console.log({data})
     const file = new Blob([data], { type: 'application/pdf' });
