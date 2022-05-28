@@ -51,12 +51,13 @@ const administrarlabs = ({ laboratoriosJson }) => {
                                         <h2 className="text-white text-lg title-font font-medium">{laboratorio.NOMBRE}</h2>
                                     </div>
                                     <div className="flex-grow">
+                                        <h4 className="text-left text-md">ID: <span className="text-red-500 text-sm">{laboratorio.ID}</span></h4>
                                         <h4 className="text-left text-md">Nombre: <span className="text-red-500 text-sm">{laboratorio.NOMBRE}</span></h4>
                                         <h4 className="text-left text-md">Estado: <span className="text-red-500 text-sm">{laboratorio.ESTADO}</span></h4>
-                                        <h4 className="text-left text-md">FECHA_DE_PAGO: <span className="text-red-500 text-sm">{laboratorio.FECHA_DE_PAGO}</span></h4>
-                                        <h4 className="text-left text-md">FECHA_DE_EXPIRACION: <span className="text-red-500 text-sm">{laboratorio.FECHA_DE_EXPIRACION}</span></h4>
-                                        <h4 className="text-left text-md">LIMITE_DE_PDF: <span className="text-red-500 text-sm">{laboratorio.LIMITE_DE_PDF}</span></h4>
-                                        <h4 className="text-left text-md">DIAS_PDF: <span className="text-red-500 text-sm">{laboratorio.DIAS_PDF}</span></h4>
+                                        <h4 className="text-left text-md">Fecha de pago: <span className="text-red-500 text-sm">{laboratorio.FECHA_DE_PAGO}</span></h4>
+                                        <h4 className="text-left text-md">Fecha de expiracion: <span className="text-red-500 text-sm">{laboratorio.FECHA_DE_EXPIRACION}</span></h4>
+                                        <h4 className="text-left text-md">Cantidad de PDF: <span className="text-red-500 text-sm">{laboratorio.LIMITE_DE_PDF}</span></h4>
+                                        <h4 className="text-left text-md">Vencimiento de PDF (dias): <span className="text-red-500 text-sm">{laboratorio.DIAS_PDF}</span></h4>
                                     </div>
                                     <Link href={`/editarlab/${laboratorio._id}`}>
                                         <button className="text-white bg-red-500 border-0 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-lg -mb-1 mt-6">Editar</button>

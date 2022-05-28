@@ -67,15 +67,15 @@ const index = ({ laboratoriosJson }) => {
   }
 
   return (
-    <section className="text-gray-400 bg-gray-900 body-font h-screen pb-24">
-      <div className="container mx-auto flex flex-col px-5 py-12 justify-center items-center">
+    <section className="text-gray-400 bg-gray-900 body-font h-screen ">
+      <div className="container mx-auto flex flex-col px-5 pt-8 justify-center items-center">
 
         <div className="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
           <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-white">Bienvenido a <b className="text-red-500"> INFOLAB </b></h1>
           <p className="mb-8 leading-relaxed">Informes de Laboratorio Online de PSLab</p>
           <div className="flex w-full justify-center items-center">
             <div className="relative mr-4 lg:w-full xl:w-1/2 w-4/5 md:w-full text-center">
-              <p className="text-sm mt-12 text-gray-500 mb-6 w-full">Por favor, ingrese sus datos</p>
+              <p className="text-md mt-12 text-gray-500 mb-6 w-full">Por favor, ingrese sus datos</p>
 
 
 
@@ -88,9 +88,11 @@ const index = ({ laboratoriosJson }) => {
                   <div>
                     <input
                       type="number"
+                      id="dni"
                       className="w-full bg-gray-800 rounded border bg-opacity-40 border-gray-700 focus:ring-2 focus:ring-red-900 focus:bg-transparent focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                       placeholder="DNI"
                       onChange={(e) => setDni(e.target.value)}
+                      onKeyDown={(e) => e.keyCode === 13 ? document.getElementById("protocolo").focus() : null}
                       required
                     />
                   </div>
@@ -98,9 +100,11 @@ const index = ({ laboratoriosJson }) => {
                   <div>
                     <input
                       type="number"
+                      id="protocolo"
                       className="w-full bg-gray-800 rounded border bg-opacity-40 border-gray-700 focus:ring-2 focus:ring-red-900 focus:bg-transparent focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                       placeholder="PROTOCOLO"
                       onChange={(e) => setProtocolo(e.target.value)}
+                      onKeyDown={(e) => e.keyCode === 13 ? handleBuscar() : null}
                       required
                     />
 
@@ -113,10 +117,10 @@ const index = ({ laboratoriosJson }) => {
                 Buscar &#128270;
               </button>
 
-              <div className="flex flex-wrap mt-24 justify-center">
+              <div className="flex flex-wrap mt-24 ">
 
                 <Link href="/administracion">
-                  <button className="rounded-md text-white bg-red-500  font-bold py-2 w-1/3 uppercase border-red-500 text-sm mx-auto">
+                  <button className="rounded-md text-white bg-red-500  font-bold py-2 w-1/3 uppercase border-red-500 text-sm ml-auto mr-5">
 
                     &#128274; Admin
                   </button>
@@ -133,11 +137,6 @@ const index = ({ laboratoriosJson }) => {
                   draggable
                   pauseOnHover
                 />
-                <Link href="/contacto">
-                  <button className="rounded-md text-white bg-red-500  font-bold py-2 w-1/3 uppercase border-red-500 text-sm mx-auto">
-                    Contacto
-                  </button>
-                </Link>
               </div>
 
 

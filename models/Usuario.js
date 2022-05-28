@@ -6,7 +6,8 @@ const schema = mongoose.Schema({
     "NOMBRE": String,
     "APELLIDO": String,
     "EMAIL": String,	
-    "HABILITADO": Boolean
+    "HABILITADO": Boolean,
+    "LABORATORIO": Number,
 });
     
 

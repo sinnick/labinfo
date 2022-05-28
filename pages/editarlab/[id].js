@@ -31,6 +31,7 @@ const lab = ({ laboratorioJSON: laboratorio }) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        ID,
         NOMBRE,
         DESCRIPCION,
         FECHA_DE_PAGO,
@@ -63,6 +64,7 @@ const lab = ({ laboratorioJSON: laboratorio }) => {
 
   }
 
+  const [ID, setID] = useState(laboratorio.ID)
   const [NOMBRE, setNOMBRE] = useState(laboratorio.NOMBRE)
   const [DESCRIPCION, setDESCRIPCION] = useState(laboratorio.DESCRIPCION)
   const [FECHA_DE_PAGO, setFECHA_DE_PAGO] = useState(laboratorio.FECHA_DE_PAGO)
@@ -80,6 +82,10 @@ const lab = ({ laboratorioJSON: laboratorio }) => {
     <div className="mx-auto max-w-7xl bg-gray-900 p-16 min-h-screen min-w-screen">
       <form>
         <div className="grid gap-6 mb-6 lg:grid-cols-2">
+          <div>
+            <label htmlFor="id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">ID</label>
+            <input value={ID} onChange={(e) => setID(e.target.value)} type="number" id="ID" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+          </div>
           <div>
             <label htmlFor="nombre" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
             <input value={NOMBRE} onChange={(e) => setNOMBRE(e.target.value)} type="text" id="nombre" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
