@@ -1,5 +1,3 @@
-import DarkmodeToggle from "./components/DarkmodeToggle";
-import { useTheme } from "next-themes";
 import Titulo from "./components/Titulo";
 import ComponenteLaboratorios from "./components/ComponenteLaboratorios";
 import { useState } from "react";
@@ -32,7 +30,7 @@ const index = ({ laboratoriosJson }) => {
   const handleBuscar = () => {
     // console.log(dni)
     // console.log(protocolo)
-    console.log(`fetching http://sinnick.duckdns.org:3000/api/${dni || 0}/${protocolo || 0}`)
+    // console.log(`fetching http://sinnick.duckdns.org:3000/api/${dni || 0}/${protocolo || 0}`)
     fetch(`/api/${dni || 0}/${protocolo || 0}`, {
       method: 'GET',
       mode: 'cors',
