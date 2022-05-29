@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 80"
   },
   "dependencies": {
     "@react-pdf/renderer": "^2.1.1",
