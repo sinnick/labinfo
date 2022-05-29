@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 export default async function (req, res) {
-    const destino = 'C:/Users/Fernando/Desktop/code/labinfo/pdf'
+    const destino = '/root/labinfo/pdf'
 
     switch (req.method) {
         case "POST":
