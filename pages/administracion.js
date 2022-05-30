@@ -54,8 +54,8 @@ return (
   <section className=" body-font bg-gray-900 h-screen">
     <div className="container px-5 py-2 md:py-24 mx-auto flex flex-wrap items-center mt-8">
       <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
-        <h1 className="title-font font-medium text-3xl text-white">Bienvenido a la pagina de administracion de PSLab web</h1>
-        <p className="leading-relaxed mt-4 text-white">Aca va texto mucho muy importante</p>
+        <h1 className="title-font font-medium text-3xl text-white">Administración de LabInfo</h1>
+        <p className="leading-relaxed mt-4 text-white">Ingrese Usuario y Contraseña de su Laboratorio para ver los Protocolos enviados a la Web. Recuerde que los mismos estarán disponibles en la Web durante 30 días a partir de su envío, según el plan contratado.</p>
       </div>
       <div className="lg:w-2/6 md:w-1/2 bg-gray-800 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 shadow-gray-900 shadow-lg">
         <h2 className="text-xl font-medium title-font mb-5 text-white">Iniciar sesion</h2>

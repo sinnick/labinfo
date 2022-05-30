@@ -53,7 +53,7 @@ const administrarlabs = ({ laboratoriosJson }) => {
                                     <div className="flex-grow">
                                         <h4 className="text-left text-md">ID: <span className="text-red-500 text-sm">{laboratorio.ID}</span></h4>
                                         <h4 className="text-left text-md">Nombre: <span className="text-red-500 text-sm">{laboratorio.NOMBRE}</span></h4>
-                                        <h4 className="text-left text-md">Estado: <span className="text-red-500 text-sm">{laboratorio.ESTADO}</span></h4>
+                                        <h4 className="text-left text-md">Activo: <span className="text-red-500 text-sm">{laboratorio.ACTIVO ? "SI" : "NO"}</span></h4>
                                         <h4 className="text-left text-md">Fecha de pago: <span className="text-red-500 text-sm">{laboratorio.FECHA_DE_PAGO}</span></h4>
                                         <h4 className="text-left text-md">Fecha de expiracion: <span className="text-red-500 text-sm">{laboratorio.FECHA_DE_EXPIRACION}</span></h4>
                                         <h4 className="text-left text-md">Cantidad de PDF: <span className="text-red-500 text-sm">{laboratorio.LIMITE_DE_PDF}</span></h4>

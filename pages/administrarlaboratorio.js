@@ -89,7 +89,8 @@ const administrarlaboratorio = ({ practicasJson, laboratoriosJson }) => {
                     return (
                         <div className="p-2 max-w-7xl" key={practica._id}>
                             <div className="bg-gray-800 rounded flex p-2 h-full items-center">
-                                <span className="title-font font-medium text-sm md:text-base text-white ml-1 md:ml-5 max-h-64">{practica.NOMBRE} - {new Date(practica.FECHA_INFORME).toLocaleString().split(',')[0]}    </span>
+                                <span className="title-font font-medium text-sm md:text-base text-white ml-1 md:ml-5 max-h-64">{practica.NOMBRE} - N°{practica.PROTOCOLO}    </span>
+                                <span className="title-font font-medium text-sm md:text-base text-white ml-1 md:ml-5 max-h-64">{new Date(practica.FECHA_INFORME).toLocaleString().split(',')[0]}    </span>
                                 {practica.VISTO ?
                                     <div className="ml-auto rounded-md text-white bg-green-700  font-bold py-2 uppercase border-green-700 text-xs md:text-sm md:mr-5 w-8 text-center" title="El protocolo fue visto">
                                         &#128065;
@@ -108,8 +109,7 @@ const administrarlaboratorio = ({ practicasJson, laboratoriosJson }) => {
                                         <div className="rounded-md text-white bg-gray-700  font-bold py-2 uppercase border-gray-700 text-xs md:text-sm md:mr-5 w-8 text-center" title="El protocolo no ha sido descargado">
                                             &#129095;
                                         </div>
-                                }
-                                <button className="rounded-md text-white bg-red-500  font-bold py-2 uppercase border-red-500 text-xs md:text-sm md:mr-5 w-8 text-center" title="Eliminar protocolo">&#128473;</button>
+                                }                                
                             </div>
 
                         </div>
