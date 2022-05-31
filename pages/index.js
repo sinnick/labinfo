@@ -1,8 +1,9 @@
-import Titulo from "./components/Titulo";
 import ComponenteLaboratorios from "./components/ComponenteLaboratorios";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import logo from "../assets/logo.png";
+import Image from "next/image";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -69,8 +70,9 @@ const index = ({ laboratoriosJson }) => {
       <div className="container mx-auto flex flex-col px-5 pt-8 justify-center items-center">
 
         <div className="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
-          <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-white">Bienvenido a <b className="text-red-500"> INFOLAB </b></h1>
+          <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-white">Bienvenido a <b className="text-red-500"> LABINFO </b></h1>
           <p className="mb-8 leading-relaxed">Informes de Laboratorio Online de PSLab</p>
+          <Image src={logo} alt="logo" width={400} height={300} />
           <div className="flex w-full justify-center items-center">
             <div className="relative mr-4 lg:w-full xl:w-1/2 w-4/5 md:w-full text-center">
               <p className="text-md mt-12 text-gray-500 mb-6 w-full">Por favor, ingrese sus datos</p>

@@ -10,8 +10,10 @@ export default async function (req, res) {
         console.log("POST Usuarios", req.body);
         try {
             let filter = { "USUARIO": req.body.usuario, "PASSWORD": req.body.password };
-            const user = await Usuario.findOne(filter);
-            res.status(200).json({ status: "ok", laboratorio: user.LABORATORIO });
+            console.log("filter", filter);
+            let user = await Usuario.findOne(filter);
+            console.log("user", user);
+            res.status(200).json({ status: "ok", laboratorio: user.LABORATORIO, admin: user.ADMIN, nombre: user.NOMBRE });
         } catch (error) {
             console.log(error);
             res.status(500).json(error);

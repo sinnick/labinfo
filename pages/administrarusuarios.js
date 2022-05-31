@@ -1,23 +1,22 @@
 import Link from "next/link";
-import Laboratorio from "models/Laboratorio";
+import Usuario from "models/Usuario";
 import { dbConnect } from "utils/mongoose";
 
 
 
 export async function getServerSideProps() {
     dbConnect();
-    const laboratorios = await Laboratorio.find();
-    const laboratoriosJson = JSON.parse(JSON.stringify(laboratorios));
-    console.log('index.js laboratoriosJson: ', laboratoriosJson)
+    const usuarios = await Usuario.find();
+    const usuariosJson = JSON.parse(JSON.stringify(usuarios));
 
     return {
-        props: { laboratoriosJson }
+        props: { usuariosJson }
     }
 
 }
 
-const administrarlabs = ({ laboratoriosJson }) => {
-    console.log('DENTRO DE adminstrar LABS : ', laboratoriosJson)
+const administrarusuarios = ({ usuariosJson }) => {
+    console.log('DENTRO DE adminstrar USU : ', usuariosJson)
 
 
 
@@ -32,15 +31,15 @@ const administrarlabs = ({ laboratoriosJson }) => {
                             Volver
                         </button>
                     </Link>
-                    <h1 className="sm:text-3xl text-2xl font-medium title-font text-white">Administracion de laboratorios</h1>
+                    <h1 className="sm:text-3xl text-2xl font-medium title-font text-white">Administracion de usuarios</h1>
                 </div>
                 <div className="flex flex-wrap m-4 justify-evenly lg:justify-start">
-                    <Link href={`/nuevolab`}>
+                    <Link href={`/nuevouser`}>
                         <button className="text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded text-lg mt-6 ml-4 mb-4">Nuevo</button>
                     </Link>
-                    {laboratoriosJson.map(laboratorio => {
+                    {usuariosJson.map(usuario => {
                         return (
-                            <div className="p-4 md:max-w-1/3 min-w-full">
+                            <div className="p-4 md:max-w-1/3 min-w-full" key={usuario._id}>
                                 <div className="flex rounded-lg h-full bg-gray-800 bg-opacity-60 p-8 flex-col ">
                                     <div className="flex items-center mb-3">
                                         <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-red-500 text-white flex-shrink-0 min-w-max">
@@ -53,18 +52,18 @@ const administrarlabs = ({ laboratoriosJson }) => {
 								S11.657,15.576,11.304,15.576z"></path>
                                             </svg>
                                         </div>
-                                        <h2 className="text-white text-lg title-font font-medium">{laboratorio.NOMBRE}</h2>
+                                        <h2 className="text-white text-lg title-font font-medium">{usuario.USUARIO}</h2>
                                     </div>
                                     <div className="flex-grow">
-                                        <h4 className="text-left text-md">ID: <span className="text-red-500 text-sm">{laboratorio.ID}</span></h4>
-                                        <h4 className="text-left text-md">Nombre: <span className="text-red-500 text-sm">{laboratorio.NOMBRE}</span></h4>
-                                        <h4 className="text-left text-md">Activo: <span className="text-red-500 text-sm">{laboratorio.ACTIVO ? "SI" : "NO"}</span></h4>
-                                        <h4 className="text-left text-md">Fecha de pago: <span className="text-red-500 text-sm">{laboratorio.FECHA_DE_PAGO}</span></h4>
-                                        <h4 className="text-left text-md">Fecha de expiracion: <span className="text-red-500 text-sm">{laboratorio.FECHA_DE_EXPIRACION}</span></h4>
-                                        <h4 className="text-left text-md">Cantidad de PDF: <span className="text-red-500 text-sm">{laboratorio.LIMITE_DE_PDF}</span></h4>
-                                        <h4 className="text-left text-md">Vencimiento de PDF (dias): <span className="text-red-500 text-sm">{laboratorio.DIAS_PDF}</span></h4>
+                                        <h4 className="text-left text-md">Usuario: <span className="text-red-500 text-sm">{usuario.USUARIO}</span></h4>
+                                        <h4 className="text-left text-md">Nombre: <span className="text-red-500 text-sm">{usuario.NOMBRE}</span></h4>
+                                        <h4 className="text-left text-md">Apellido: <span className="text-red-500 text-sm">{usuario.APELLIDO}</span></h4>
+                                        <h4 className="text-left text-md">Email: <span className="text-red-500 text-sm">{usuario.EMAIL}</span></h4>
+                                        <h4 className="text-left text-md">Laboratorio: <span className="text-red-500 text-sm">{usuario.LABORATORIO}</span></h4>
+                                        <h4 className="text-left text-md">Habilitado: <span className="text-red-500 text-sm">{usuario.HABILITADO ? "Si" : "No"}</span></h4>
+                                        <h4 className="text-left text-md">Es admin: <span className="text-red-500 text-sm">{usuario.ADMIN ? "Si" : "No"}</span></h4>
                                     </div>
-                                    <Link href={`/editarlab/${laboratorio._id}`}>
+                                    <Link href={`/editarusuario/${usuario._id}`}>
                                         <button className="text-white bg-red-500 border-0 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-lg -mb-1 mt-6">Editar</button>
                                     </Link>
                                 </div>
@@ -80,4 +79,4 @@ const administrarlabs = ({ laboratoriosJson }) => {
     )
 }
 
-export default administrarlabs
+export default administrarusuarios
