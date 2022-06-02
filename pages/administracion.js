@@ -31,6 +31,7 @@ const administracion = () => {
             if (body.admin) {
               toast.success("Bienvenido", body.nombre)
               setTimeout(() => {
+                localStorage.setItem("usuario", body.id);
                 router.push({
                   pathname: "/admingeneral",
                 })

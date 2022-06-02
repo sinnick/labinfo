@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Laboratorio from "models/Laboratorio";
 import { dbConnect } from "utils/mongoose";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+
 
 
 
@@ -17,7 +20,15 @@ export async function getServerSideProps() {
 }
 
 const administrarlabs = ({ laboratoriosJson }) => {
-    console.log('DENTRO DE adminstrar LABS : ', laboratoriosJson)
+    
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!localStorage.getItem("usuario")) {
+            alert("No tienes permisos para acceder a esta pagina");
+            router.push("/");
+        }
+    }, [])
 
 
 

@@ -13,7 +13,7 @@ export default async function (req, res) {
             console.log("filter", filter);
             let user = await Usuario.findOne(filter);
             console.log("user", user);
-            res.status(200).json({ status: "ok", laboratorio: user.LABORATORIO, admin: user.ADMIN, nombre: user.NOMBRE });
+            res.status(200).json({ status: "ok", laboratorio: user.LABORATORIO, admin: user.ADMIN, nombre: user.NOMBRE, id:user._id });
         } catch (error) {
             console.log(error);
             res.status(500).json(error);

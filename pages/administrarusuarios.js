@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Usuario from "models/Usuario";
 import { dbConnect } from "utils/mongoose";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+
 
 
 
@@ -16,9 +19,16 @@ export async function getServerSideProps() {
 }
 
 const administrarusuarios = ({ usuariosJson }) => {
-    console.log('DENTRO DE adminstrar USU : ', usuariosJson)
 
 
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!localStorage.getItem("usuario")) {
+            alert("No tienes permisos para acceder a esta pagina");
+            router.push("/");
+        }
+    }, [])
 
 
 

@@ -4,6 +4,7 @@ import Practica from "models/Practica";
 import Usuario from "models/Usuario";
 import { dbConnect } from "utils/mongoose";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 
 
@@ -30,11 +31,19 @@ export async function getServerSideProps() {
 
 
 const admingeneral = ({ practicasJson, laboratoriosJson, usuariosJson }) => {
-  
     const router = useRouter();
+
+    useEffect(() => {
+        if (!localStorage.getItem("usuario")) {
+            alert("No tienes permisos para acceder a esta pagina");
+            router.push("/");
+        }
+    }, [])
+  
 
     async function logOut() {
         localStorage.removeItem("laboratorio");
+        localStorage.removeItem("usuario");
         router.push("/");
     }
 
