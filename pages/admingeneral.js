@@ -33,6 +33,11 @@ const admingeneral = ({ practicasJson, laboratoriosJson, usuariosJson }) => {
   
     const router = useRouter();
 
+    async function logOut() {
+        localStorage.removeItem("laboratorio");
+        router.push("/");
+    }
+
     async function administrarUsuarios() {
         router.push("/administrarusuarios");
     }
@@ -50,6 +55,7 @@ const admingeneral = ({ practicasJson, laboratoriosJson, usuariosJson }) => {
         <section className="text-gray-400 body-font bg-gray-900">
             <div className="container px-5 py-8 mx-auto">
                 <div className="flex flex-col text-center w-full mb-10">
+                <button onClick={logOut} className="rounded-md text-white bg-red-500  font-bold py-2 px-5 uppercase border-red-500 text-sm ml-auto mr-5 mb-10">Volver a menu principal</button>
                     <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Administracion general de laboratorios y usuarios</h1>
                 </div>
                 <section className="text-gray-400 bg-gray-900 body-font mb-5">

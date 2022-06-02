@@ -12,6 +12,13 @@ export default async function (req, res) {
             try {
                 console.log('voy a intentar guardar el pdf en ', pathpdf);
                 fs.writeFileSync(pathpdf, respuesta.pdf, 'base64');
+                fetch(`/api/lablink/pdf/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                })
                 res.send('ok')
             }
             catch (error) {

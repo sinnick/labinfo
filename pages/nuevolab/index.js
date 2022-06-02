@@ -35,10 +35,10 @@ const lab = ({ laboratorioJSON: laboratorio }) => {
         DESCRIPCION,
         FECHA_DE_PAGO,
         FECHA_DE_EXPIRACION,
-        ESTADO,
         EMAIL,
         LIMITE_DE_PDF,
-        DIAS_PDF
+        DIAS_PDF,
+        ACTIVO
       })
     })
     alert('Laboratorio cargado: ' + NOMBRE)
@@ -51,10 +51,11 @@ const lab = ({ laboratorioJSON: laboratorio }) => {
   const [DESCRIPCION, setDESCRIPCION] = useState('')
   const [FECHA_DE_PAGO, setFECHA_DE_PAGO] = useState('')
   const [FECHA_DE_EXPIRACION, setFECHA_DE_EXPIRACION] = useState('')
-  const [ESTADO, setESTADO] = useState('')
   const [EMAIL, setEMAIL] = useState('')
   const [LIMITE_DE_PDF, setLIMITE_DE_PDF] = useState('')
   const [DIAS_PDF, setDIAS_PDF] = useState('')
+  const [ACTIVO, setACTIVO] = useState(true)
+
 
 
 
@@ -87,9 +88,9 @@ const lab = ({ laboratorioJSON: laboratorio }) => {
           </div>
           <div>
             <label htmlFor="estado" className="block mb-2 text-sm font-medium text-white dark:text-gray-300">estado</label>
-            <select id="estado"  onChange={(e) => setESTADO(e.target.value)} className="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-              <option value="activo">Activo</option>
-              <option value="inactivo">Inactivo</option>
+            <select id="estado"  onChange={(e) => setACTIVO(e.target.value)} className="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+              <option value="true">Activo</option>
+              <option value="false">Inactivo</option>
             </select>
           </div>
           <div>
