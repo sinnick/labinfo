@@ -1,9 +1,9 @@
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import Practica from "models/Practica";
 import Laboratorio from "models/Laboratorio";
 import { dbConnect } from "utils/mongoose";
 import { useRouter } from "next/router";
+import Head from "next/head";	
 
 
 
@@ -42,12 +42,12 @@ const administrarlaboratorio = ({ practicasJson, laboratoriosJson }) => {
     const daysRemaining = Math.ceil((limitDayDate - today) / (1000 * 60 * 60 * 24));
     const diasPDF = laboratorio[0] ? laboratorio[0].DIAS_PDF : "";
     const limitePDF = laboratorio[0] ? laboratorio[0].LIMITE_DE_PDF : 0;
-    
-    
-    
-    
 
-    
+
+
+
+
+
 
 
 
@@ -63,6 +63,10 @@ const administrarlaboratorio = ({ practicasJson, laboratoriosJson }) => {
 
     return (
         <section className="text-gray-400 body-font bg-gray-900">
+            <Head>
+                <title>Lab Info</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <div className="container px-5 py-8 mx-auto">
                 <div className="flex flex-col text-center w-full mb-10">
                     <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">{laboratorioNombre}</h1>
@@ -109,7 +113,7 @@ const administrarlaboratorio = ({ practicasJson, laboratoriosJson }) => {
                                         <div className="rounded-md text-white bg-gray-700  font-bold py-2 uppercase border-gray-700 text-xs md:text-sm md:mr-5 w-8 text-center" title="El protocolo no ha sido descargado">
                                             &#129095;
                                         </div>
-                                }                                
+                                }
                             </div>
 
                         </div>

@@ -3,6 +3,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import workerSrc from "pdf-worker.js";
 import Practica from "models/Practica"
 import Link from "next/link";
+import Head from "next/head";	
 import { dbConnect } from "utils/mongoose"
 
 
@@ -54,6 +55,10 @@ const resultado = ({ respuesta }) => {
 
   return (
     <div className="text-gray-400 bg-gray-900 p-64 -m-64 lg:p-0 lg:m-0">
+    <Head>
+        <title>Lab Info</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <section className="text-gray-400 bg-gray-900 body-font">
         <div className="container px-5 py-12 mx-auto">
       <Link href="/">

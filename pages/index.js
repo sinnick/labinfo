@@ -1,4 +1,5 @@
 import ComponenteLaboratorios from "./components/ComponenteLaboratorios";
+import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -61,19 +62,23 @@ const index = ({ laboratoriosJson }) => {
         toast.error("No se encontro el protocolo")
         console.log(err)
       })
-    
+
 
   }
 
   return (
     <section className="text-gray-400 bg-gray-900 body-font h-screen ">
+      <Head>
+        <title>Lab Info</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="container mx-auto flex flex-col px-5 pt-8 justify-center items-center">
 
         <div className="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
           {/* <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-white">Bienvenido a <b className="text-red-500"> LABINFO </b></h1>
           <p className="mb-8 leading-relaxed">Informes de Laboratorio Online de PSLab</p> */}
           <div className="w-2/3 md:w-4/5 lg:w-2/5">
-          <Image src={logo} alt="logo" width={4125}  layout="intrinsic"/>
+            <Image src={logo} alt="logo" width={4125} layout="intrinsic" />
 
           </div>
           <div className="flex w-full justify-center items-center">

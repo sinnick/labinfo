@@ -3,6 +3,7 @@ import Laboratorio from "models/Laboratorio";
 import { dbConnect } from "utils/mongoose";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";	
 
 
 
@@ -20,7 +21,7 @@ export async function getServerSideProps() {
 }
 
 const administrarlabs = ({ laboratoriosJson }) => {
-    
+
     const router = useRouter();
 
     useEffect(() => {
@@ -36,6 +37,10 @@ const administrarlabs = ({ laboratoriosJson }) => {
 
     return (
         <section className="text-gray-400 bg-gray-900 body-font ">
+            <Head>
+                <title>Lab Info</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <div className="container px-5 py-24 mx-auto flex flex-wrap justify-center" >
                 <div className="flex flex-col text-center w-full mb-20">
                     <Link href="/admingeneral">

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Head from "next/head";	
 import Laboratorio from "models/Laboratorio";
 import Practica from "models/Practica";
 import Usuario from "models/Usuario";
@@ -18,7 +18,7 @@ export async function getServerSideProps() {
     const practicasJson = JSON.parse(JSON.stringify(practicas));
     const laboratoriosJson = JSON.parse(JSON.stringify(laboratorios));
     const usuariosJson = JSON.parse(JSON.stringify(usuarios));
-    
+
 
     return {
         props: {
@@ -39,7 +39,7 @@ const admingeneral = ({ practicasJson, laboratoriosJson, usuariosJson }) => {
             router.push("/");
         }
     }, [])
-  
+
 
     async function logOut() {
         localStorage.removeItem("laboratorio");
@@ -62,9 +62,13 @@ const admingeneral = ({ practicasJson, laboratoriosJson, usuariosJson }) => {
 
     return (
         <section className="text-gray-400 body-font bg-gray-900">
+            <Head>
+                <title>Lab Info</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <div className="container px-5 py-8 mx-auto">
                 <div className="flex flex-col text-center w-full mb-10">
-                <button onClick={logOut} className="rounded-md text-white bg-red-500  font-bold py-2 px-5 uppercase border-red-500 text-sm ml-auto mr-5 mb-10">Volver a menu principal</button>
+                    <button onClick={logOut} className="rounded-md text-white bg-red-500  font-bold py-2 px-5 uppercase border-red-500 text-sm ml-auto mr-5 mb-10">Volver a menu principal</button>
                     <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Administracion general de laboratorios y usuarios</h1>
                 </div>
                 <section className="text-gray-400 bg-gray-900 body-font mb-5">
@@ -86,10 +90,10 @@ const admingeneral = ({ practicasJson, laboratoriosJson, usuariosJson }) => {
                     </div>
                 </section>
             </div>
-                <div className="flex flex-wrap  text-center justify-center">
-                    <button onClick={administrarUsuarios} className="rounded-md text-white bg-red-500  font-bold py-2 px-5 uppercase border-red-500 text-sm  mr-5">&#128100;    Administrar Usuarios</button>
-                    <button onClick={administrarLaboratorios} className="rounded-md text-white bg-red-500  font-bold py-2 px-5 uppercase border-red-500 text-sm  mr-5">&#128300;    Administrar Laboratorios</button>
-                </div>
+            <div className="flex flex-wrap  text-center justify-center">
+                <button onClick={administrarUsuarios} className="rounded-md text-white bg-red-500  font-bold py-2 px-5 uppercase border-red-500 text-sm  mr-5">&#128100;    Administrar Usuarios</button>
+                <button onClick={administrarLaboratorios} className="rounded-md text-white bg-red-500  font-bold py-2 px-5 uppercase border-red-500 text-sm  mr-5">&#128300;    Administrar Laboratorios</button>
+            </div>
         </section >
     )
 }

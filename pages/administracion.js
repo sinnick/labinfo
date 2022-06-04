@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Head from "next/head";	
 
 
 const administracion = () => {
@@ -13,50 +13,54 @@ const administracion = () => {
 
 
   const handleLogin = () => {
-      fetch(`/api/usuario/login`, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          usuario: user,
-          password: password
-        })
+    fetch(`/api/usuario/login`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        usuario: user,
+        password: password
       })
-        .then(async res => {
-          if (res.status === 200) {
-            let body = await res.json();
-            console.log({body})
-            if (body.admin) {
-              toast.success("Bienvenido", body.nombre)
-              setTimeout(() => {
-                localStorage.setItem("usuario", body.id);
-                router.push({
-                  pathname: "/admingeneral",
-                })
-              }, 2000);
-            } else {
+    })
+      .then(async res => {
+        if (res.status === 200) {
+          let body = await res.json();
+          console.log({ body })
+          if (body.admin) {
+            toast.success("Bienvenido", body.nombre)
+            setTimeout(() => {
+              localStorage.setItem("usuario", body.id);
+              router.push({
+                pathname: "/admingeneral",
+              })
+            }, 2000);
+          } else {
             localStorage.setItem("laboratorio", body.laboratorio);
             toast.success("Bienvenido", body.nombre)
             setTimeout(() => {
               router.push("/administrarlaboratorio")
             }, 2000);
-            }
-          } else {
-            toast.error("Usuario o contraseña incorrectos")
-            document.getElementById("user").value = ""
-            document.getElementById("password").value = ""
           }
-        })
-        .catch(err => {
-          toast.error("Error general")
-        })
+        } else {
+          toast.error("Usuario o contraseña incorrectos")
+          document.getElementById("user").value = ""
+          document.getElementById("password").value = ""
+        }
+      })
+      .catch(err => {
+        toast.error("Error general")
+      })
   }
 
 
   return (
     <section className=" body-font bg-gray-900 h-screen">
+      <Head>
+        <title>Lab Info</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="container px-5 py-2 md:py-24 mx-auto flex flex-wrap items-center mt-8">
         <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
           <h1 className="title-font font-medium text-3xl text-white">Administración de LabInfo</h1>
@@ -95,17 +99,17 @@ const administracion = () => {
         </div>
       </div>
       <ToastContainer
-                  theme="dark"
-                  position="bottom-center"
-                  autoClose={1500}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={true}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                />
+        theme="dark"
+        position="bottom-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </section>
   );
 }
