@@ -1,7 +1,10 @@
 const fs = require('fs');
+import { dbConnect } from 'utils/mongoose';
+import Practica from 'models/Practica';
 
 export default async function (req, res) {
-    const destino = '/root/labinfo/pdf'
+    // const destino = '/root/labinfo/pdf'
+    const destino = 'C:/Users/Fernando/Desktop/code/labinfo/pdf'
 
     switch (req.method) {
         case "POST":
@@ -12,17 +15,11 @@ export default async function (req, res) {
             try {
                 console.log('voy a intentar guardar el pdf en ', pathpdf);
                 fs.writeFileSync(pathpdf, respuesta.pdf, 'base64');
-                fetch(`/api/lablink/pdf/`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                })
-                res.send('ok')
+                let data = await sincronizar();
+                res.status(200).send({ status: 'ok', mensaje: 'pdf guardado en server LabInfo', data: data });
             }
             catch (error) {
-                console.log(error);
+                console.log('error al sincronizar', error);
                 res.status(500).json(error);
             }
             break;
@@ -33,4 +30,77 @@ export default async function (req, res) {
 
 
 
+
+
+    async function sincronizar() {
+        console.log('sincronizando');
+        dbConnect();
+        const files = fs.readdirSync('pdf', { withFileTypes: false });
+        let data;
+        for (let file of files) {
+            if (file.endsWith('.pdf')) {
+                console.log('trabajando con archivo:', file)
+                let laboratorio = file.split('_')[0];
+                let protocolo = file.split('_')[1];
+                let dni = file.split('_')[2];
+                let nombre = file.split('_')[3];
+                let fecha_informe = await getFechaInforme(file.split('_')[4]);
+                // console.log({fecha_informe})
+                let fecha_creacion = new Date();
+                // console.log({fecha_creacion})
+                let fecha_eliminacion = await getFechaEliminacion(fecha_creacion);
+                // console.log({fecha_eliminacion})
+                let practica = ({
+                    "FILENAME": file,
+                    "LABORATORIO": laboratorio,
+                    "PROTOCOLO": protocolo,
+                    "DNI": dni,
+                    "NOMBRE": nombre,
+                    "FECHA_INFORME": fecha_informe,
+                    "FECHA_CREACION": fecha_creacion,
+                    "FECHA_ELIMINACION": fecha_eliminacion,
+                    "VISTO": false,
+                    "DESCARGADO": false,
+                });
+                const query = { "PROTOCOLO": protocolo, "DNI": dni, "LABORATORIO": laboratorio };
+                const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+                Practica.findOneAndUpdate(query, practica, options, (err, result) => {
+                    if (err) {
+                        console.log('error al updatear protocolo');
+                    } else {
+                        console.log('protocolo UPDATEADO', result.FILENAME);
+                        data = result.FILENAME;
+                    }
+                });
+            } else {
+                console.log('no es un archivo pdf')
+            }
+        }
+        return data;
+    }
+
+
+    async function getFechaInforme(fechaInforme) {
+        let fechaInformeArray = fechaInforme.replace('.pdf', '').split('');
+        let day = fechaInformeArray[0] + fechaInformeArray[1];
+        let preMonth = fechaInformeArray[2] + fechaInformeArray[3];
+        let year = fechaInformeArray[4] + fechaInformeArray[5] + fechaInformeArray[6] + fechaInformeArray[7];
+        let month = parseInt(preMonth) - 1;
+
+        // let fechaInformeConGuiones = fechaInformeArray.slice(0, 2).join('') + '-' + fechaInformeArray.slice(2, 4).join('') + '-' + fechaInformeArray.slice(4, 8).join('');
+
+        let DateFechaInforme = new Date(year, month, day);
+        return DateFechaInforme;
+    }
+
+    async function getFechaEliminacion(fecha_creacion) {
+        let month = fecha_creacion.getMonth();
+        let year = fecha_creacion.getFullYear();
+        let day = fecha_creacion.getDate() + 1;
+        month == 11 ? month = 0 : month = month + 1;
+        let DateFechaEliminacion = new Date(year, month, day);
+        console.log(fecha_creacion)
+        console.log(DateFechaEliminacion)
+        return DateFechaEliminacion;
+    }
 }

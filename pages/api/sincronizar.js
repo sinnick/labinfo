@@ -1,6 +1,4 @@
 const fs = require('fs');
-const mongoose = require('mongoose');
-const moment = require('moment');
 import { dbConnect } from 'utils/mongoose';
 import Practica from 'models/Practica';
 
