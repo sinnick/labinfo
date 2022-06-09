@@ -25,8 +25,19 @@ const index = ({ laboratoriosJson }) => {
 
 
   // const { theme, setTheme } = useTheme();
-  const [dni, setDni] = useState(0);
-  const [protocolo, setProtocolo] = useState(0);
+  const [dni, setDni] = useState('');
+  const [protocolo, setProtocolo] = useState('');
+
+  const checkDNI = (caracter) => {
+    if (((caracter*1) / (caracter*1) === 1) && (caracter*1) > 0) {
+      setDni(caracter);
+    }
+  }
+  const checkProtocolo = (caracter) => {
+    if (((caracter*1) / (caracter*1) === 1) && (caracter*1) > 0) {
+      setProtocolo(caracter);
+    }
+  }
 
 
   const handleBuscar = () => {
@@ -95,24 +106,31 @@ const index = ({ laboratoriosJson }) => {
 
                   <div>
                     <input
-                      type="number"
+                      type="text"
                       id="dni"
                       className="w-full bg-gray-800 rounded border bg-opacity-40 border-gray-700 focus:ring-2 focus:ring-red-900 focus:bg-transparent focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                       placeholder="DNI"
-                      onChange={(e) => setDni(e.target.value)}
-                      onKeyDown={(e) => e.keyCode === 13 ? document.getElementById("protocolo").focus() : null}
+                      onChange={(e) => checkDNI(e.target.value)}
+                      onKeyDown={(e) => {
+                        e.keyCode === 13 ? document.getElementById("protocolo").focus() : null;
+                        (e.keyCode === 8 && dni.length == 1) ? setDni('') : null;
+                        }}
                       required
+                      value={dni}
                     />
                   </div>
 
                   <div>
                     <input
-                      type="number"
+                      type="text"
                       id="protocolo"
                       className="w-full bg-gray-800 rounded border bg-opacity-40 border-gray-700 focus:ring-2 focus:ring-red-900 focus:bg-transparent focus:border-red-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                       placeholder="PROTOCOLO"
-                      onChange={(e) => setProtocolo(e.target.value)}
-                      onKeyDown={(e) => e.keyCode === 13 ? handleBuscar() : null}
+                      onChange={(e) => checkProtocolo(e.target.value)}
+                      onKeyDown={(e) => {
+                        e.keyCode === 13 ? handleBuscar() : null;
+                        (e.keyCode === 8 && protocolo.length == 1) ? setProtocolo('') : null;
+                        }}
                       required
                     />
 

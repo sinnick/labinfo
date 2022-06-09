@@ -3,8 +3,8 @@ import { dbConnect } from 'utils/mongoose';
 import Practica from 'models/Practica';
 
 export default async function (req, res) {
-    // const destino = '/root/labinfo/pdf'
-    const destino = 'C:/Users/Fernando/Desktop/code/labinfo/pdf'
+
+    const destino = process.env.ENV === 'dev' ? 'C:/Users/Fernando/Desktop/code/labinfo/pdf' : '/root/labinfo/pdf';
 
     switch (req.method) {
         case "POST":

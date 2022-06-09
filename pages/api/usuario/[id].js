@@ -36,7 +36,7 @@ export default async (req, res) => {
         case "DELETE":
             try {
                 await dbConnect();
-                const usuarioBorrrado = await suario.findByIdAndDelete(id);
+                const usuarioBorrrado = await Usuario.findByIdAndDelete(id);
                 if (!usuarioBorrrado) {
                     return res.status(404).json({ error: "No se encontró el usuario" });
                 }
