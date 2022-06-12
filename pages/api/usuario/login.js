@@ -9,7 +9,7 @@ export default async function (req, res) {
     if (req.method == "POST") {
         console.log("POST Usuarios", req.body);
         try {
-            let filter = { "USUARIO": req.body.usuario, "PASSWORD": req.body.password };
+            let filter = { "USUARIO": req.body.usuario.toLowerCase() , "PASSWORD": req.body.password.toLowerCase() };
             console.log("filter", filter);
             let user = await Usuario.findOne(filter);
             console.log("user", user);

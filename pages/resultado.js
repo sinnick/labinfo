@@ -34,7 +34,7 @@ const resultado = ({ respuesta }) => {
 
 
   console.log({ respuesta })
-  const [file, setFile] = useState(`/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`);
+  const [file, setFile] = useState(`/api/${respuesta.DNI}/${respuesta.PROTOCOLO}/${respuesta.LABORATORIO}`)
   const [numPages, setNumPages] = useState(null);
 
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
@@ -42,8 +42,8 @@ const resultado = ({ respuesta }) => {
   }
 
   async function handleDownload() {
-    fetch(`/api/update/${respuesta.DNI}/${respuesta.PROTOCOLO}`)
-    let resp = await fetch(`/api/${respuesta.DNI}/${respuesta.PROTOCOLO}`)
+    fetch(`/api/update/${respuesta.DNI}/${respuesta.PROTOCOLO}/${respuesta.LABORATORIO}`)
+    let resp = await fetch(`/api/${respuesta.DNI}/${respuesta.PROTOCOLO}/${respuesta.LABORATORIO}`)
     console.log({ resp })
     let data = await resp.blob()
     console.log({ data })
