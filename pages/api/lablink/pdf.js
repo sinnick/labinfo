@@ -38,7 +38,7 @@ export default async function (req, res) {
         const files = fs.readdirSync('pdf', { withFileTypes: false });
         let data;
         for (let file of files) {
-            if (file.endsWith('.pdf')) {
+            if (file.endsWith('.pdf') || file.endsWith('.PDF')) {
                 console.log('trabajando con archivo:', file)
                 let laboratorio = file.split('_')[0];
                 let protocolo = file.split('_')[1];
@@ -50,30 +50,39 @@ export default async function (req, res) {
                 // console.log({fecha_creacion})
                 let fecha_eliminacion = await getFechaEliminacion(fecha_creacion);
                 // console.log({fecha_eliminacion})
-                let practica = ({
-                    "FILENAME": file,
-                    "LABORATORIO": laboratorio,
-                    "PROTOCOLO": protocolo,
-                    "DNI": dni,
-                    "NOMBRE": nombre,
-                    "FECHA_INFORME": fecha_informe,
-                    "FECHA_CREACION": fecha_creacion,
-                    "FECHA_ELIMINACION": fecha_eliminacion,
-                    "VISTO": false,
-                    "DESCARGADO": false,
-                });
-                const query = { "PROTOCOLO": protocolo, "DNI": dni, "LABORATORIO": laboratorio };
-                const options = { upsert: true, new: true, setDefaultsOnInsert: true };
-                Practica.findOneAndUpdate(query, practica, options, (err, result) => {
-                    if (err) {
-                        console.log('error al updatear protocolo');
-                    } else {
-                        console.log('protocolo UPDATEADO', result.FILENAME);
-                        data = result.FILENAME;
-                    }
-                });
+
+                let regexlaboratorio = /^[0-9]{4}$/;
+                let regexprotocolo = /^[0-9]{8}$/;
+                let regexdni = /^[0-9]{8}$/;
+                
+                if (regexlaboratorio.test(laboratorio) && regexprotocolo.test(protocolo) && regexdni.test(dni)) {
+                    let practica = ({
+                        "FILENAME": file,
+                        "LABORATORIO": laboratorio,
+                        "PROTOCOLO": protocolo,
+                        "DNI": dni,
+                        "NOMBRE": nombre,
+                        "FECHA_INFORME": fecha_informe,
+                        "FECHA_CREACION": fecha_creacion,
+                        "FECHA_ELIMINACION": fecha_eliminacion,
+                        "VISTO": false,
+                        "DESCARGADO": false,
+                    });
+                    const query = { "PROTOCOLO": protocolo, "DNI": dni, "LABORATORIO": laboratorio };
+                    const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+                    Practica.findOneAndUpdate(query, practica, options, (err, result) => {
+                        if (err) {
+                            console.log('error al updatear protocolo');
+                        } else {
+                            console.log('protocolo UPDATEADO', result.FILENAME);
+                            data = result.FILENAME;
+                        }
+                    });
+                } else {
+                    console.log('archivo no valido por formato', file);
+                }
             } else {
-                console.log('no es un archivo pdf')
+                console.log('no es un archivo pdf', file)
             }
         }
         return data;
