@@ -32,6 +32,7 @@ const lab = ({ laboratorioJSON: laboratorio }) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        ID,
         NOMBRE,
         DESCRIPCION,
         FECHA_DE_PAGO,
