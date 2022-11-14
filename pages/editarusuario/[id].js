@@ -17,9 +17,6 @@ export async function getServerSideProps(req) {
 }
 
 
-
-
-
 const user = ({ usuarioJSON }) => {
 
   const router = useRouter()

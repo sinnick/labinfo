@@ -45,17 +45,12 @@ export default async function (req, res) {
                 let dni = file.split('_')[2];
                 let nombre = file.split('_')[3];
                 let fecha_informe = await getFechaInforme(file.split('_')[4]);
-                // console.log({fecha_informe})
                 let fecha_creacion = new Date();
-                // console.log({fecha_creacion})
                 let fecha_eliminacion = await getFechaEliminacion(fecha_creacion);
-                // console.log({fecha_eliminacion})
-
                 let regexlaboratorio = /^[0-9]{4}$/;
                 let regexprotocolo = /^[0-9]{8}$/;
-                let regexdni = /^[0-9]{8}$/;
                 
-                if (regexlaboratorio.test(laboratorio) && regexprotocolo.test(protocolo) && regexdni.test(dni)) {
+                if (regexlaboratorio.test(laboratorio) && regexprotocolo.test(protocolo)) {
                     let practica = ({
                         "FILENAME": file,
                         "LABORATORIO": laboratorio,
