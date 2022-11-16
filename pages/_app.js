@@ -3,6 +3,7 @@ import 'tailwindcss/tailwind.css'
 function SafeHydrate({ children }) {
   return (
     <div suppressHydrationWarning>
+      <title>Lab Info</title>
       {typeof window === 'undefined' ? null : children}
     </div>
   )

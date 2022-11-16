@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export async function getServerSideProps() {
   const laboratorios = await fetch('http://localhost:80/api/laboratorios')
   const laboratoriosJson = await laboratorios.json()
-  console.log('index.js laboratoriosJson: ', laboratoriosJson)
+  console.log('consulto laboratorios')
 
   return {
     props: { laboratoriosJson }

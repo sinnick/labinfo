@@ -12,7 +12,7 @@ export async function getServerSideProps() {
     dbConnect();
     const laboratorios = await Laboratorio.find();
     const laboratoriosJson = JSON.parse(JSON.stringify(laboratorios));
-    console.log('index.js laboratoriosJson: ', laboratoriosJson)
+    console.log('consulto laboratorios')
 
     return {
         props: { laboratoriosJson }

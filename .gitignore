@@ -38,4 +38,5 @@ yarn-error.log*
 *.tsbuildinfo
 /.vscode
 /node_modules/
-/pdf/
+/pdf/procesados/*
+/pdf/no_procesados/*

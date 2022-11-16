@@ -16,8 +16,8 @@ export default async function practica(req, res) {
     if (practica) {
         res.status(200).send(practica);
     } else {
-        console.log("No se encontro el archivo")
-        res.status(400).json("No se encontro el archivo")
+        console.log("No se encontro el protocolo")
+        res.status(400).json("No se encontro el protocolo")
 
     }
 

@@ -5,22 +5,28 @@ import Practica from 'models/Practica';
 export default async function (req, res) {
 
     const destino = process.env.ENV === 'dev' ? 'C:/Users/Fernando/Desktop/code/labinfo/pdf' : '/root/labinfo/pdf';
+    const respuesta = await JSON.parse(req.body);
 
     switch (req.method) {
         case "POST":
             console.log("POST pdf");
-            let respuesta = await JSON.parse(req.body);
             let pathpdf = `${destino}/${respuesta.filename}`;
             // console.log({ respuesta })
             try {
                 console.log('voy a intentar guardar el pdf en ', pathpdf);
-                fs.writeFileSync(pathpdf, respuesta.pdf, 'base64');
+                fs.writeFileSync(pathpdf, respuesta.pdf, 'base64', (err) => {
+                    if (err) {
+                        console.log('error al guardar pdf', err);
+                    }
+                })
                 let data = await sincronizar();
                 res.status(200).send({ status: 'ok', mensaje: 'pdf guardado en server LabInfo', data: data });
+                // res.status(200).send({ status: 'ok', mensaje: 'pdf guardado en server LabInfo' });
             }
             catch (error) {
                 console.log('error al sincronizar', error);
-                res.status(500).json(error);
+                // res.status(500).json(error);
+                res.status(500).send('error al sincronizarrrrrrrrrrrrrrrrrrr');
             }
             break;
         default:
@@ -36,6 +42,12 @@ export default async function (req, res) {
         console.log('sincronizando');
         dbConnect();
         const files = fs.readdirSync('pdf', { withFileTypes: false });
+        if (!fs.existsSync('pdf/procesados')) {
+            fs.mkdirSync('pdf/procesados');
+        }
+        if (!fs.existsSync('pdf/no_procesados')) {
+            fs.mkdirSync('pdf/no_procesados');
+        }
         let data;
         for (let file of files) {
             if (file.endsWith('.pdf') || file.endsWith('.PDF')) {
@@ -72,12 +84,29 @@ export default async function (req, res) {
                             console.log('protocolo UPDATEADO', result.FILENAME);
                             data = result.FILENAME;
                         }
+                    })
+                    fs.rename(`${destino}/${file}`, `${destino}/procesados/${file}`, (err) => {
+                        if (err) {
+                            console.log('error al mover archivo', err);
+                        }
                     });
                 } else {
                     console.log('archivo no valido por formato', file);
+                    fs.rename(`${destino}/${file}`, `${destino}/no_procesados/${file}`, (err) => {
+                        if (err) {
+                            console.log('error al mover archivo', err);
+                        }
+                    });
                 }
             } else {
-                console.log('no es un archivo pdf', file)
+                if (file !== 'procesados' && file !== 'no_procesados') {
+                    console.log('no es un archivo pdf valido', file)
+                    fs.rename(`${destino}/${file}`, `${destino}/no_procesados/${file}`, (err) => {
+                        if (err) {
+                            console.log('error al mover archivo', err);
+                        }
+                    });
+                };
             }
         }
         return data;

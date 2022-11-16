@@ -15,11 +15,11 @@ export default async function practica(req, res) {
     if (practica) {
         let update = { "VISTO": true };
         let filter = { "PROTOCOLO": protocolo, "DNI": dni };
-        console.log("practica encontrada", practica)
+        console.log("practica encontrada", practica.FILENAME);
         await Practica.findOneAndUpdate(filter, update)
-        fs.readdirSync('pdf', { withFileTypes: true }).forEach(async (file) => {
+        fs.readdirSync('pdf/procesados', { withFileTypes: true }).forEach(async (file) => {
             if (file.name.includes(protocolo) && file.name.includes(dni)) {
-                let pdf = fs.readFileSync('pdf/' + file.name)
+                let pdf = fs.readFileSync('pdf/procesados/' + file.name)
                 res.setHeader('Content-Type', 'application/pdf');
                 res.status(200).send(pdf);
             }
