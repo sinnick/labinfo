@@ -85,6 +85,12 @@ export default async function (req, res) {
                             data = result.FILENAME;
                         }
                     })
+                    fs.readdirSync(`${destino}/procesados/`, { withFileTypes: true }).forEach((file) => {
+                        if (file.name.includes(protocolo) && file.name.includes(dni) && file.name.includes(laboratorio)) {
+                            console.log('ARCHIVO YA EXISTIA, SE ELIMINA!!!!!!');
+                            fs.rmSync(`${destino}/procesados/${file.name}`);
+                        }
+                    })
                     fs.rename(`${destino}/${file}`, `${destino}/procesados/${file}`, (err) => {
                         if (err) {
                             console.log('error al mover archivo', err);
@@ -132,8 +138,8 @@ export default async function (req, res) {
         let day = fecha_creacion.getDate() + 1;
         month == 11 ? month = 0 : month = month + 1;
         let DateFechaEliminacion = new Date(year, month, day);
-        console.log(fecha_creacion)
-        console.log(DateFechaEliminacion)
+        // console.log(fecha_creacion)
+        // console.log(DateFechaEliminacion)
         return DateFechaEliminacion;
     }
 }
