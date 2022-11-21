@@ -86,7 +86,10 @@ export default async function (req, res) {
                         }
                     })
                     fs.readdirSync(`${destino}/procesados/`, { withFileTypes: true }).forEach((file) => {
-                        if (file.name.includes(protocolo) && file.name.includes(dni) && file.name.includes(laboratorio)) {
+                        let file_laboratorio = file.name.split('_')[0]*1;
+                        let file_protocolo = file.name.split('_')[1]*1;
+                        let file_dni = file.name.split('_')[2]*1;
+                        if ((file_protocolo == protocolo) && (file_dni == dni) && (file_laboratorio == laboratorio)) {
                             console.log('ARCHIVO YA EXISTIA, SE ELIMINA!!!!!!');
                             fs.rmSync(`${destino}/procesados/${file.name}`);
                         }
@@ -115,6 +118,7 @@ export default async function (req, res) {
                 };
             }
         }
+        console.log('data para devolver: ', data);
         return data;
     }
 
