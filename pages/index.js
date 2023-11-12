@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export async function getServerSideProps() {
-  const laboratorios = await fetch('http://localhost:80/api/laboratorios')
+  const laboratorios = await fetch('http://localhost:3000/api/laboratorios')
   const laboratoriosJson = await laboratorios.json()
   console.log('consulto laboratorios')
 

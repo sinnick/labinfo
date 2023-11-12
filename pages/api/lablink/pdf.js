@@ -34,10 +34,6 @@ export default async function (req, res) {
             break;
     }
 
-
-
-
-
     async function sincronizar() {
         console.log('sincronizando');
         dbConnect();

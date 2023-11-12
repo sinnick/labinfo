@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev -p 80",
+    "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start -p 80"
+    "start": "next start -p 3000"
   },
   "dependencies": {
     "@react-pdf/renderer": "^2.1.1",

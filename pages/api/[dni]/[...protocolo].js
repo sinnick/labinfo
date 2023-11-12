@@ -4,12 +4,15 @@ import Practica from "models/Practica"
 
 
 export default async function practica(req, res) {
+    console.log("GET practica", JSON.stringify(req.query));
     dbConnect();
     const dni = req.query.dni
     const protocolo = req.query.protocolo[0]
     const laboratorio = req.query.protocolo[1]
+    
+    console.log({ dni, protocolo, laboratorio });
 
-    console.log('buscando practica', "PROTOCOLO" + req.query.protocolo, "DNI" + req.query.dni, "LABORATORIO" + req.query.laboratorio)
+    console.log('buscando practica', "PROTOCOLO" + protocolo, "DNI" + dni, "LABORATORIO" + laboratorio)
 
     const practica = await Practica.findOne({ "PROTOCOLO": protocolo, "DNI": dni, "LABORATORIO": laboratorio });
     if (practica) {

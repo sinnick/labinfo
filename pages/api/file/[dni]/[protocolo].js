@@ -10,6 +10,7 @@ const cors = Cors({
 
 
 export default async function practica(req, res) {
+    console.log("GET practica", {req});
     dbConnect();
 
     const practica = await Practica.findOne({ "PROTOCOLO": req.query.protocolo, "DNI": req.query.dni });
